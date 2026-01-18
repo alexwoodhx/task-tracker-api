@@ -6,15 +6,11 @@ import {
   getOne,
   update,
   remove,
-} from "./projects.controller.js";
-import taskRoutes from "../tasks/tasks.routes.js";
+} from "./tasks.controller.js";
 
-
-const router = Router();
+const router = Router({ mergeParams: true });
 
 router.use(protect);
-router.use("/:projectId/tasks", taskRoutes);
-
 
 router.post("/", create);
 router.get("/", list);

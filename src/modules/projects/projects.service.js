@@ -1,4 +1,5 @@
-import Project from "./project.model.js"
+import Project from "./project.model.js";
+import AppError from "../../utils/AppError.js";
 
 export const createProject = async (data, userId) => {
     return Project.create({
@@ -20,7 +21,7 @@ export const getProjectById = async (projectId, user) => {
             : { _id: projectId, owner: user._id };
 
     const project = await Project.findOne(query);
-    if (!project) throw new Error("Project not found");
+    if (!project) throw new AppError("Project not found", 404);
 
     return project;
 };
@@ -37,7 +38,7 @@ export const updateProject = async (projectId, user, updates) => {
       { new: true, runValidators: true }
     );
   
-    if (!project) throw new Error("Project not found");
+    if (!project) throw new AppError("Project not found", 404);
   
     return project;
   };
@@ -49,5 +50,5 @@ export const updateProject = async (projectId, user, updates) => {
         : { _id: projectId, owner: user._id };
   
     const project = await Project.findOneAndDelete(query);
-    if (!project) throw new Error("Project not found");
+    if (!project) throw new AppError("Project not found", 404);
   };

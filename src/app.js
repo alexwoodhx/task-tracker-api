@@ -1,6 +1,7 @@
 import express from "express";
 import authRoutes from "./modules/auth/auth.routes.js"
 import projectRoutes from "./modules/projects/projects.routes.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 
 
 
@@ -12,5 +13,5 @@ app.use("/projects", projectRoutes);
 app.get("/health", (req, res) => {
     res.json({ status: "ok" });
 })
-
+app.use(errorHandler)
 export default app;
